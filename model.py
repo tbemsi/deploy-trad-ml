@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 seed = 42
 
 class MachineLearningModel:
-    def __init__(self, model_name: str, features: List[str]):
+    def __init__(self, features: List[str]):
         self.model = None
         self.features = features
 
@@ -66,6 +66,7 @@ class MachineLearningModel:
     def predict(self, datapoint: List[str], model_name: str) -> List[float]:
         try:
             self.model = joblib.load(f"models/{model_name}_model.joblib")
+            print(f"loaded {model_name} from disk")
             features = pd.DataFrame(datapoint, columns=self.features)
             return self.model.predict(features).tolist()
         except Exception as e:
